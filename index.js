@@ -7,14 +7,6 @@ const { MongoClient } = require('mongodb');
 
 const port = process.env.PORT || 5000;
 
-
-// const serviceAccount = JSON.parse(JSON.stringify(process.env.FIREBASE_SERVICE_ACCOUNT));
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount)
-// });
-
-
 admin.initializeApp({
   credential: admin.credential.cert({
       type: process.env.FIREBASE_TYPE,
@@ -23,7 +15,6 @@ admin.initializeApp({
       privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
   }),
 });
-
 
 app.use(cors());
 app.use(express.json());
