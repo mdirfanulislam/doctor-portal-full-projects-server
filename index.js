@@ -7,11 +7,23 @@ const { MongoClient } = require('mongodb');
 
 const port = process.env.PORT || 5000;
 
-var serviceAccount = require('./doctors-portal-firebase-adminsdk.json');
+
+// const serviceAccount = JSON.parse(JSON.stringify(process.env.FIREBASE_SERVICE_ACCOUNT));
+
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
+
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert({
+      type: process.env.FIREBASE_TYPE,
+      projectId: process.env.FIREBASE_PROJECT_ID,
+      clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+      privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
+  }),
 });
+
 
 app.use(cors());
 app.use(express.json());
